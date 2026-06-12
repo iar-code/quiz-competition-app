@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Competition Leaderboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .leaderboard-container {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .title h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .title p {
+            color: #777;
+        }
+
+        .top-three {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .podium {
+            text-align: center;
+            border-radius: 15px 15px 0 0;
+            color: white;
+            padding-top: 15px;
+            width: 140px;
+        }
+
+        .first {
+            background: #f59e0b;
+            height: 220px;
+        }
+
+        .second {
+            background: #9ca3af;
+            height: 180px;
+        }
+
+        .third {
+            background: #cd7f32;
+            height: 150px;
+        }
+
+        .rank {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .name {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .score {
+            margin-top: 8px;
+            font-size: 1rem;
+        }
+
+        .leaderboard-list {
+            width: 100%;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            background: #f8fafc;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .leaderboard-item:hover {
+            transform: translateY(-2px);
+            background: #eef2ff;
+        }
+
+        .player-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .player-rank {
+            width: 40px;
+            height: 40px;
+            background: #4f46e5;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .player-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .player-score {
+            font-weight: bold;
+            color: #4f46e5;
+        }
+
+        @media (max-width: 768px) {
+            .top-three {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .podium {
+                width: 100%;
+                max-width: 250px;
+                border-radius: 15px;
+            }
+
+            .first,
+            .second,
+            .third {
+                height: auto;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="leaderboard-container">
+
+    <div class="title">
+        <h1>🏆 Quiz Competition Leaderboard</h1>
+        <p>Top Participants</p>
+    </div>
+
+    <!-- Top 3 -->
+    <div class="top-three">
+
+        <div class="podium second">
+            <div class="rank">🥈</div>
+            <div class="name">Priya Sharma</div>
+            <div class="score">950 pts</div>
+        </div>
+
+        <div class="podium first">
+            <div class="rank">🥇</div>
+            <div class="name">Aman Verma</div>
+            <div class="score">1000 pts</div>
+        </div>
+
+        <div class="podium third">
+            <div class="rank">🥉</div>
+            <div class="name">Rahul Singh</div>
+            <div class="score">900 pts</div>
+        </div>
+
+    </div>
+
+    <!-- Remaining Rankings -->
+    <div class="leaderboard-list">
+
+        <div class="leaderboard-item">
+            <div class="player-info">
+                <div class="player-rank">4</div>
+                <div class="player-name">Neha Gupta</div>
+            </div>
+            <div class="player-score">870 pts</div>
+        </div>
+
+        <div class="leaderboard-item">
+            <div class="player-info">
+                <div class="player-rank">5</div>
+                <div class="player-name">Karan Mehta</div>
+            </div>
+            <div class="player-score">850 pts</div>
+        </div>
+
+        <div class="leaderboard-item">
+            <div class="player-info">
+                <div class="player-rank">6</div>
+                <div class="player-name">Anjali Patel</div>
+            </div>
+            <div class="player-score">820 pts</div>
+        </div>
+
+        <div class="leaderboard-item">
+            <div class="player-info">
+                <div class="player-rank">7</div>
+                <div class="player-name">Rohit Kumar</div>
+            </div>
+            <div class="player-score">790 pts</div>
+        </div>
+
+        <div class="leaderboard-item">
+            <div class="player-info">
+                <div class="player-rank">8</div>
+                <div class="player-name">Sneha Jain</div>
+            </div>
+            <div class="player-score">760 pts</div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Competition - Home</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#4f46e5,#06b6d4);
+    min-height:100vh;
+    color:white;
+}
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 50px;
+    background:rgba(0,0,0,0.2);
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-weight:bold;
+}
+
+.hero{
+    text-align:center;
+    padding:100px 20px;
+}
+
+.hero h1{
+    font-size:3rem;
+    margin-bottom:20px;
+}
+
+.hero p{
+    font-size:1.2rem;
+    max-width:700px;
+    margin:auto;
+    line-height:1.8;
+}
+
+.start-btn{
+    display:inline-block;
+    margin-top:30px;
+    padding:15px 35px;
+    background:white;
+    color:#2563eb;
+    text-decoration:none;
+    border-radius:10px;
+    font-size:18px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.start-btn:hover{
+    transform:translateY(-3px);
+}
+
+.features{
+    max-width:1200px;
+    margin:50px auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    color:#333;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.2);
+}
+
+.card h3{
+    margin-bottom:15px;
+    color:#2563eb;
+}
+
+.info{
+    text-align:center;
+    padding:50px 20px;
+}
+
+.info h2{
+    margin-bottom:20px;
+}
+
+.footer{
+    text-align:center;
+    padding:20px;
+    background:rgba(0,0,0,.2);
+    margin-top:50px;
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="logo">🏆 Quiz Competition</div>
+
+    <div class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="index.html">Quiz</a>
+        <a href="#features">Features</a>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+    <h1>Welcome to the Ultimate Quiz Competition</h1>
+
+    <p>
+        Challenge your knowledge, compete with friends,
+        earn points, and climb the leaderboard.
+        Test your skills in HTML, CSS, JavaScript,
+        General Knowledge, Science, and more.
+    </p>
+
+    <a href="index.html" class="start-btn">
+        Start Competition
+    </a>
+</section>
+
+<!-- Features -->
+<section id="features" class="features">
+
+    <div class="card">
+        <h3>⏱ Timer Based</h3>
+        <p>Answer questions before time runs out.</p>
+    </div>
+
+    <div class="card">
+        <h3>🏅 Leaderboard</h3>
+        <p>Track scores and compete for top rank.</p>
+    </div>
+
+    <div class="card">
+        <h3>📚 Multiple Categories</h3>
+        <p>Practice with different quiz subjects.</p>
+    </div>
+
+    <div class="card">
+        <h3>🎯 Instant Results</h3>
+        <p>Get your score immediately after completion.</p>
+    </div>
+
+</section>
+
+<!-- Competition Info -->
+<section class="info">
+    <h2>Competition Rules</h2>
+
+    <p>✅ Enter your name before starting.</p>
+    <p>✅ Each question has a time limit.</p>
+    <p>✅ One answer per question.</p>
+    <p>✅ Highest score wins the competition.</p>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>© 2026 Quiz Competition App | All Rights Reserved</p>
+</footer>
+
+</body>
+</html>

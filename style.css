@@ -1,0 +1,257 @@
+/* ==========================
+   GLOBAL STYLES
+========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#4f46e5,#06b6d4);
+    min-height:100vh;
+    padding:20px;
+}
+
+/* ==========================
+   NAVBAR
+========================== */
+
+.navbar{
+    background:#111827;
+    color:#fff;
+    padding:15px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+
+.navbar h1{
+    font-size:24px;
+    font-weight:bold;
+}
+
+/* ==========================
+   CONTAINER
+========================== */
+
+.container{
+    max-width:800px;
+    margin:40px auto;
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* ==========================
+   SCREENS
+========================== */
+
+.screen{
+    display:none;
+    animation:fadeIn .4s ease;
+}
+
+.active{
+    display:block;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ==========================
+   TEXT
+========================== */
+
+h2{
+    margin-bottom:15px;
+    color:#1e293b;
+}
+
+p{
+    margin-bottom:15px;
+    color:#555;
+    line-height:1.6;
+}
+
+/* ==========================
+   INPUT
+========================== */
+
+input{
+    width:100%;
+    padding:12px;
+    margin:12px 0;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    outline:none;
+    font-size:16px;
+}
+
+input:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 5px rgba(37,99,235,0.4);
+}
+
+/* ==========================
+   BUTTONS
+========================== */
+
+.btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-top:10px;
+    font-size:16px;
+    transition:0.3s;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+/* ==========================
+   PROGRESS
+========================== */
+
+.progress{
+    margin-bottom:15px;
+    font-weight:bold;
+    color:#374151;
+    font-size:18px;
+}
+
+/* ==========================
+   TIMER
+========================== */
+
+.timer{
+    font-size:20px;
+    color:#ef4444;
+    font-weight:bold;
+    margin-bottom:15px;
+    padding:10px;
+    background:#fee2e2;
+    border-radius:8px;
+    text-align:center;
+}
+
+/* ==========================
+   QUESTION
+========================== */
+
+.question{
+    font-size:24px;
+    margin-bottom:20px;
+    font-weight:bold;
+    color:#111827;
+}
+
+/* ==========================
+   OPTIONS
+========================== */
+
+.option{
+    background:#f3f4f6;
+    padding:14px;
+    margin:10px 0;
+    border-radius:8px;
+    cursor:pointer;
+    transition:0.3s;
+    border:2px solid transparent;
+}
+
+.option:hover{
+    background:#dbeafe;
+    border-color:#2563eb;
+}
+
+.correct{
+    background:#22c55e !important;
+    color:white;
+}
+
+.wrong{
+    background:#ef4444 !important;
+    color:white;
+}
+
+/* ==========================
+   RESULT SCREEN
+========================== */
+
+.score-box{
+    font-size:24px;
+    margin:20px 0;
+    font-weight:bold;
+    text-align:center;
+    color:#2563eb;
+}
+
+/* ==========================
+   LEADERBOARD
+========================== */
+
+ul{
+    list-style:none;
+    padding:0;
+}
+
+li{
+    background:#f3f4f6;
+    margin:10px 0;
+    padding:12px;
+    border-radius:8px;
+    font-weight:500;
+    transition:.3s;
+}
+
+li:hover{
+    background:#dbeafe;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media(max-width:768px){
+
+    body{
+        padding:10px;
+    }
+
+    .navbar{
+        flex-direction:column;
+        text-align:center;
+        gap:10px;
+    }
+
+    .container{
+        padding:20px;
+    }
+
+    .question{
+        font-size:20px;
+    }
+
+    .btn{
+        width:100%;
+    }
+}

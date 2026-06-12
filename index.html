@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Competition App</title>
+
+<style>
+    .leaderboard{
+    margin-top:25px;
+    text-align:left;
+}
+
+.leaderboard h3{
+    text-align:center;
+    margin-bottom:15px;
+    color:#4f46e5;
+}
+
+.leaderboard-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#f8fafc;
+    padding:12px 15px;
+    border-radius:10px;
+    margin-bottom:10px;
+}
+
+.leaderboard-rank{
+    font-weight:bold;
+    width:40px;
+}
+
+.leaderboard-name{
+    flex:1;
+    margin-left:10px;
+}
+
+.leaderboard-score{
+    font-weight:bold;
+    color:#4f46e5;
+}
+
+.current-user{
+    background:#dbeafe;
+    border:2px solid #4f46e5;
+}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#4f46e5,#7c3aed);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.quiz-container{
+    width:100%;
+    max-width:700px;
+    background:#fff;
+    border-radius:15px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.score, .timer{
+    font-size:18px;
+    font-weight:bold;
+}
+
+.question-number{
+    color:#666;
+    margin-bottom:10px;
+}
+
+.question{
+    font-size:24px;
+    margin-bottom:20px;
+    font-weight:bold;
+}
+
+.options{
+    display:grid;
+    gap:12px;
+}
+
+.option{
+    padding:15px;
+    border:2px solid #ddd;
+    border-radius:10px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.option:hover{
+    background:#f5f5f5;
+}
+
+.option.correct{
+    background:#22c55e;
+    color:white;
+    border-color:#22c55e;
+}
+
+.option.wrong{
+    background:#ef4444;
+    color:white;
+    border-color:#ef4444;
+}
+
+.option.disabled{
+    pointer-events:none;
+}
+
+.btn{
+    margin-top:20px;
+    padding:12px 25px;
+    background:#4f46e5;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    display:none;
+}
+
+.btn:hover{
+    background:#4338ca;
+}
+
+.result{
+    text-align:center;
+    display:none;
+}
+
+.result h2{
+    margin-bottom:15px;
+}
+
+.result p{
+    font-size:20px;
+    margin-bottom:20px;
+}
+
+.restart-btn{
+    padding:12px 25px;
+    background:#16a34a;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+
+    <div id="quizScreen">
+        <div class="header">
+            <div class="score">Score: <span id="score">0</span></div>
+            <div class="timer">Time: <span id="time">15</span>s</div>
+        </div>
+
+        <div class="question-number" id="questionNumber"></div>
+
+        <div class="question" id="question"></div>
+
+        <div class="options" id="options"></div>
+
+        <button class="btn" id="nextBtn">Next Question</button>
+    </div>
+
+    <div class="result" id="resultScreen">
+    <h2>Quiz Finished 🎉</h2>
+    <p>Your Score: <span id="finalScore"></span></p>
+
+    <!-- Leaderboard -->
+    <div class="leaderboard">
+        <h3>🏆 Leaderboard</h3>
+        <div id="leaderboardList"></div>
+    </div>
+
+    <button class="restart-btn" onclick="restartQuiz()">
+        Restart Quiz
+    </button>
+</div>
+</div>
+
+<script>
+
+const quizData = [
+{
+    question:"What is the capital of India?",
+    options:["Mumbai","Delhi","Kolkata","Chennai"],
+    answer:"Delhi"
+},
+{
+    question:"Which planet is known as the Red Planet?",
+    options:["Earth","Mars","Venus","Jupiter"],
+    answer:"Mars"
+},
+{
+    question:"Who developed JavaScript?",
+    options:["Bill Gates","Brendan Eich","Elon Musk","Steve Jobs"],
+    answer:"Brendan Eich"
+},
+{
+    question:"Which language runs in a web browser?",
+    options:["Java","Python","C++","JavaScript"],
+    answer:"JavaScript"
+},
+{
+    question:"What does HTML stand for?",
+    options:[
+        "Hyper Text Markup Language",
+        "High Text Machine Language",
+        "Hyper Tool Markup Language",
+        "Home Text Markup Language"
+    ],
+    answer:"Hyper Text Markup Language"
+}
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timer;
+let timeLeft = 15;
+
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+const scoreEl = document.getElementById("score");
+const timeEl = document.getElementById("time");
+const nextBtn = document.getElementById("nextBtn");
+const questionNumber = document.getElementById("questionNumber");
+
+function loadQuestion(){
+
+    clearInterval(timer);
+    timeLeft = 15;
+    timeEl.textContent = timeLeft;
+
+    timer = setInterval(()=>{
+        timeLeft--;
+        timeEl.textContent = timeLeft;
+
+        if(timeLeft <= 0){
+            clearInterval(timer);
+            autoReveal();
+        }
+    },1000);
+
+    const q = quizData[currentQuestion];
+
+    questionNumber.textContent =
+        `Question ${currentQuestion+1} of ${quizData.length}`;
+
+    questionEl.textContent = q.question;
+
+    optionsEl.innerHTML = "";
+
+    q.options.forEach(option => {
+        const btn = document.createElement("div");
+        btn.classList.add("option");
+        btn.textContent = option;
+
+        btn.addEventListener("click",()=>{
+            selectAnswer(btn, option);
+        });
+
+        optionsEl.appendChild(btn);
+    });
+
+    nextBtn.style.display = "none";
+}
+
+function selectAnswer(selectedBtn, selectedOption){
+
+    clearInterval(timer);
+
+    const correctAnswer = quizData[currentQuestion].answer;
+
+    document.querySelectorAll(".option").forEach(option=>{
+        option.classList.add("disabled");
+
+        if(option.textContent === correctAnswer){
+            option.classList.add("correct");
+        }
+    });
+
+    if(selectedOption === correctAnswer){
+        score++;
+        scoreEl.textContent = score;
+    }else{
+        selectedBtn.classList.add("wrong");
+    }
+
+    nextBtn.style.display = "inline-block";
+}
+
+function autoReveal(){
+
+    const correctAnswer = quizData[currentQuestion].answer;
+
+    document.querySelectorAll(".option").forEach(option=>{
+        option.classList.add("disabled");
+
+        if(option.textContent === correctAnswer){
+            option.classList.add("correct");
+        }
+    });
+
+    nextBtn.style.display = "inline-block";
+}
+
+nextBtn.addEventListener("click",()=>{
+
+    currentQuestion++;
+
+    if(currentQuestion < quizData.length){
+        loadQuestion();
+    }else{
+        finishQuiz();
+    }
+});
+let leaderboardData =
+    JSON.parse(localStorage.getItem("leaderboard")) || [
+        {name:"Aman", score:5},
+        {name:"Priya", score:4},
+        {name:"Rahul", score:4}
+    ];
+
+function renderLeaderboard(){
+
+    const board = [...leaderboardData];
+
+    board.push({
+    name:"You",
+    score:(score * 100) / quizData.length
+});
+
+    board.sort((a,b)=>b.score-a.score);
+
+    const container =
+        document.getElementById("leaderboardList");
+
+    container.innerHTML = "";
+
+    board.forEach((player,index)=>{
+
+        const row = document.createElement("div");
+        row.className = "leaderboard-item";
+
+        if(player.name === "You"){
+            row.classList.add("current-user");
+        }
+
+        row.innerHTML = `
+            <div class="leaderboard-rank">#${index+1}</div>
+            <div class="leaderboard-name">${player.name}</div>
+            <div class="leaderboard-score">${player.score}</div>
+        `;
+
+        container.appendChild(row);
+    });
+}
+
+function finishQuiz(){
+
+    // save score first
+    leaderboardData.push({
+        name: "You",
+        score: score
+    });
+
+    localStorage.setItem(
+        "leaderboard",
+        JSON.stringify(leaderboardData)
+    );
+
+    document.getElementById("quizScreen").style.display = "none";
+    document.getElementById("resultScreen").style.display = "block";
+
+    document.getElementById("finalScore").textContent =
+        `${score} / ${quizData.length}`;
+
+    renderLeaderboard();
+}
+
+
+function restartQuiz(){
+
+    currentQuestion = 0;
+    score = 0;
+
+    scoreEl.textContent = 0;
+
+    document.getElementById("quizScreen").style.display = "block";
+    document.getElementById("resultScreen").style.display = "none";
+
+    loadQuestion();
+}
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
